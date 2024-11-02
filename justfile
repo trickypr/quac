@@ -1,39 +1,43 @@
 ghdl_opts := "--workdir=out/"
 entry := "adder"
 
-testbenches := ("adder")
+source_files := `( find ./src/ -regex '^.*[^_tb].vhdl$' )`
+
+test_files := `( find ./src/ -regex '^.*_tb.vhdl$' )`
+test_cases := "('adder')"
 
 setup:
   mkdir -p out/
 
 analyze: setup
-  #!/usr/bin/env bash
-  shopt -s extglob
-  ghdl analyze {{ghdl_opts}} src/*!(_tb).vhdl 
-  shopt -u extglob
+  ghdl -a {{ghdl_opts}} {{source_files}}
 
 elaboration: analyze
-  ghdl -e {{entry}} {{ghdl_opts}}
+  ghdl -e {{ghdl_opts}} {{entry}}
 
 run: elaboration
-  rm out/wave.ghw
-  ghdl run {{entry}} {{ghdl_opts}} --wave=out/wave.ghw
+  rm -f out/wave.ghw
+  ghdl -r {{ghdl_opts}} {{entry}} --wave=out/wave.ghw
+
+wave:
+  gtkwave out/wave.ghw
 
 case entry: elaboration
-  ghdl analyze {{ghdl_opts}} src/{{entry}}_tb.vhdl 
-  ghdl -e {{entry}}_tb {{ghdl_opts}}
-  ghdl run {{entry}}_tb {{ghdl_opts}} --wave=out/wave_tb_{{entry}}.ghw
+  ghdl analyze {{ghdl_opts}} {{test_files}} 
+  ghdl -e {{ghdl_opts}} {{entry}}_tb 
+  ghdl run {{ghdl_opts}} {{entry}}_tb --wave=out/wave_tb_{{entry}}.ghw
 
-# test: 
-#   for i in "${testbenches[@]}"; do
-#     just case '$i'
-#   done
-
+test: elaboration 
+  #!/bin/sh
+  test_cases={{test_cases}}
+  for case in "${test_cases[@]}"; do
+    echo "trying case $case"
+    # We run the cases earlier, we can skip running them here
+    just --no-deps case $case
+  done
 
 clean:
   rm out/*
 
-wave:
-  gtkwave out/wave.ghw
 
 
