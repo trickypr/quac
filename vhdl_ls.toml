@@ -1,0 +1,4 @@
+[libraries]
+work.files = ["adder.vhdl"]
+test.files = ["adder_tb.vhdl"]
+
