@@ -1,4 +1,4 @@
 [libraries]
-work.files = ["adder.vhdl"]
-test.files = ["adder_tb.vhdl"]
+work.files = ["adder.vhdl", "alu.vhdl"]
+test.files = ["adder_tb.vhdl", "alu_tb.vhdl"]
 

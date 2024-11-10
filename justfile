@@ -1,9 +1,9 @@
-ghdl_opts := "--workdir=out/"
+ghdl_opts := "--workdir=out/ -fsynopsys"
 entry := "adder"
 
-source_files := `( find ./src/ -regex '^.*[^_tb].vhdl$' )`
+source_files := `( find ./src/ -regex '^.*[^_tb].vhdl$' | tr '\n' ' ' )`
 
-test_files := `( find ./src/ -regex '^.*_tb.vhdl$' )`
+test_files := `( find ./src/ -regex '^.*_tb.vhdl$' | tr '\n' ' ' )`
 test_cases := "('adder')"
 
 setup:
