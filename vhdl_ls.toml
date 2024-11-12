@@ -1,4 +1,12 @@
 [libraries]
-work.files = ["adder.vhdl", "alu.vhdl"]
-test.files = ["adder_tb.vhdl", "alu_tb.vhdl"]
+defaultlib.files = [
+  "src/adder.vhdl", 
+  "src/alu.vhdl", 
+  "src/reg_16.vhdl"
+]
+test.files = [
+  "src/adder_tb.vhdl", 
+  "src/alu_tb.vhdl",
+  "src/reg_16.vhdl"
+]
 

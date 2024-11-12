@@ -4,7 +4,7 @@ entry := "adder"
 source_files := `( find ./src/ -regex '^.*[^_tb].vhdl$' | tr '\n' ' ' )`
 
 test_files := `( find ./src/ -regex '^.*_tb.vhdl$' | tr '\n' ' ' )`
-test_cases := "('adder')"
+test_cases := "('alu' 'reg_16')"
 
 setup:
   mkdir -p out/
@@ -22,10 +22,11 @@ run: elaboration
 wave:
   gtkwave out/wave.ghw
 
-case entry: elaboration
+case entry *FLAGS: elaboration
   ghdl analyze {{ghdl_opts}} {{test_files}} 
   ghdl -e {{ghdl_opts}} {{entry}}_tb 
   ghdl run {{ghdl_opts}} {{entry}}_tb --wave=out/wave_tb_{{entry}}.ghw
+  {{ if FLAGS == "-i" {"gtkwave out/wave_tb_" + entry + ".ghw"} else {""} }}
 
 test: elaboration 
   #!/bin/sh
