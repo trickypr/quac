@@ -4,7 +4,7 @@ entry := "adder"
 source_files := `( find ./src/ -regex '^.*[^_tb].vhdl$' | tr '\n' ' ' )`
 
 test_files := `( find ./src/ -regex '^.*_tb.vhdl$' | tr '\n' ' ' )`
-test_cases := "('alu' 'reg_16')"
+test_cases := "('alu' 'reg_16' 'register_file')"
 
 setup:
   mkdir -p out/

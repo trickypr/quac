@@ -24,7 +24,7 @@ begin
   process 
     type pattern_type is record
       -- inputs
-d : std_logic_vector(15 downto 0);
+      d : std_logic_vector(15 downto 0);
       en, clk : std_logic;
       -- outputs
       q : std_logic_vector(15 downto 0);
@@ -90,7 +90,7 @@ d : std_logic_vector(15 downto 0);
         report ">:( reg_16 behaved incorrectly";
     end loop; 
 
-    assert false report "donw with reg_16 tests :3" severity note;
+    assert false report "done with reg_16 tests :3" severity note;
     wait;
   end process;
   

@@ -5,7 +5,7 @@ entity reg_16 is
   port (
     -- inputs
     d   : in std_logic_vector(15 downto 0);
-    en  : in std_logic;
+    en  : in bit;
     clk : in std_logic;
     -- outputs
     q   : out std_logic_vector(15 downto 0)

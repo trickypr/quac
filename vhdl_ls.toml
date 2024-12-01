@@ -2,11 +2,13 @@
 defaultlib.files = [
   "src/adder.vhdl", 
   "src/alu.vhdl", 
-  "src/reg_16.vhdl"
+  "src/reg_16.vhdl",
+  "src/register_file.vhdl"
 ]
 test.files = [
   "src/adder_tb.vhdl", 
   "src/alu_tb.vhdl",
-  "src/reg_16.vhdl"
+  "src/reg_16_tb.vhdl",
+  "src/register_file_tb.vhdl"
 ]
 
